@@ -1,4 +1,4 @@
-use actix_web::{App, HttpRequest, HttpServer, Responder, web};
+use actix_web::{App, HttpRequest, HttpServer, Responder, body, web};
 use reqwest::Client;
 use std::sync::Arc;
 use tokio::sync::Mutex;
