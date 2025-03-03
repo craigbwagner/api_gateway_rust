@@ -14,12 +14,12 @@ async fn main() -> std::io::Result<()> {
     });
 
     HttpServer::new(move || {
-        App::new()
-            .app_data(web::Data::new(state.clone()))
-            .route("/auth", web::post().to(forward_to_auth))
-            .route("user", web::get().to(forward_to_user))
+        App::new().app_data(web::Data::new(state.clone())).route(
+            "/",
+            web::post().to(forward_to_coin_api_playground(req, body, state)),
+        )
     })
-    .bind("127.0.0.1")?
+    .bind("127.0.0.1:8080")?
     .run()
     .await
 }
