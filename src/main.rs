@@ -23,3 +23,16 @@ async fn main() -> std::io::Result<()> {
     .run()
     .await
 }
+
+async fn forward_to_coin_api_playground(
+    req: HttpRequest,
+    body: web::Bytes,
+    state: web::Data<Arc<AppState>>,
+) -> Responder {
+    let response = match state.client.post("http://127.0.0.1:5001").send().await {
+        Ok(response) => response,
+        Err(e) => {
+            return web::HttpResponse::InternalServerError().body(format!("Request failed: {}", e));
+        }
+    };
+}
